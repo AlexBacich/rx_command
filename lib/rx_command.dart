@@ -2,7 +2,6 @@ library rx_command;
 
 import 'dart:async';
 
-import 'package:quiver_hashcode/hashcode.dart';
 import 'package:rxdart/rxdart.dart';
 
 export 'rx_command_listener.dart';
@@ -51,12 +50,13 @@ class CommandResult<T> {
   @override
   bool operator ==(Object other) =>
       other is CommandResult<T> &&
-      other.data == data &&
-      other.error == error &&
-      other.isExecuting == isExecuting;
+          other.data == data &&
+          other.error == error &&
+          other.isExecuting == isExecuting;
 
   @override
-  int get hashCode => hash3(data.hashCode, error.hashCode, isExecuting.hashCode);
+  int get hashCode => data.hashCode ^ error.hashCode ^ isExecuting.hashCode;
+
 
   @override
   String toString() {
